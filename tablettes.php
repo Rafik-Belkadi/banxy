@@ -164,7 +164,7 @@ include 'includes/header.php';
                     <tbody>
                         <?php
                         include 'models/User.php';
-                        
+
                         $user = new User($db);
 
                         $result = $user->getAllUsers();
@@ -190,4 +190,6 @@ include 'includes/header.php';
 
 </div>
 <!-- End of Main Content -->
+
 <?php include 'includes/footer.php'; ?>
+
