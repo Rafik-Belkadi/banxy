@@ -3,33 +3,44 @@ Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,Bli
 Chart.defaults.global.defaultFontColor = '#858796';
 
 // Pie Chart Example
-var ctx = document.getElementById("myPieChart");
-var myPieChart = new Chart(ctx, {
-  type: 'doughnut',
-  data: {
-    labels: ["Direct", "Referral", "Social"],
-    datasets: [{
-      data: [35, 35, 30],
-      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
-      hoverBorderColor: "rgba(234, 236, 244, 1)",
-    }],
-  },
-  options: {
-    maintainAspectRatio: false,
-    tooltips: {
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
-      borderColor: '#dddfeb',
-      borderWidth: 1,
-      xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
-      caretPadding: 10,
-    },
-    legend: {
-      display: false
-    },
-    cutoutPercentage: 80,
-  },
+var myData ;
+var ctv = document.getElementById("myPieChart");
+
+$.ajax({
+  type: "GET",
+  url: "../Admin/api/data/rubriques.php",
+  success: function(res) {
+    myData = res;
+
+    var myPieChart = new Chart(ctv, {
+      type: 'doughnut',
+      data: {
+        labels: ["Gestion 100% Mobile", "Avantages inédits", "Cartes Gold& Platinum", "Toujours à votre écoute"],
+        datasets: [{
+          data: [myData.mobile, myData.avantages, myData.cartes, myData.ecoute],
+          backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc','#333'],
+          hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf', '#fff'],
+          hoverBorderColor: "rgba(234, 236, 244, 1)",
+        }],
+      },
+      options: {
+        maintainAspectRatio: false,
+        tooltips: {
+          backgroundColor: "rgb(255,255,255)",
+          bodyFontColor: "#858796",
+          borderColor: '#dddfeb',
+          borderWidth: 1,
+          xPadding: 15,
+          yPadding: 15,
+          displayColors: false,
+          caretPadding: 10,
+        },
+        legend: {
+          display: false
+        },
+        cutoutPercentage: 80,
+      },
+    });    
+    
+  }
 });
