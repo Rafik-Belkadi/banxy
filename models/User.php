@@ -36,24 +36,16 @@
         // Get single User (tablette)
         public function getUser($user)
         {
-            $query = 'SELECT * FROM ' . $this->table . ' WHERE username= ?';
+            $query = 'SELECT * FROM ' . $this->table . ' WHERE id= ?';
 
             //  Prepare Statement
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(1, $user);
             $stmt->execute();
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            return $row;
-        }
-        public function getAllInteractions()
-        {
-            $query = 'SELECT * FROM interaction_time';
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute();
-            
             return $stmt;
         }
+        
         // Interaction
         public function interact($user, $interact)
         {
@@ -101,4 +93,62 @@
             printf("Error: %s.\n", $stmt->error);
             return false;
         }
+
+        // Interactions Section Functions 
+        public function getAllInteractions()
+        {
+            $query = 'SELECT * FROM interaction_time';
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            
+            return $stmt;
+        }
+
+        public function getAllRubriquesInteractions()
+        {
+            $query = 'SELECT SUM(one) as Mobile,SUM(two) as Avantages,SUM(three) as Cartes,SUM(four) as Ecoute FROM users';
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            
+            return $stmt;
+        }
+
+        public function getMaxInteraction()
+        {
+            $query = 'SELECT MAX(interacted) as maxed FROM users';
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+
+            return $stmt;
+        }
+
+        public function getAllInteractionTime()
+        {
+            $query = 'SELECT HOUR(interaction_date_time) as hour, COUNT(*) as num_rows FROM interaction_time GROUP BY HOUR(interaction_date_time)';
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            
+            return $stmt;
+        }
+
+        public function getInteractionRowsNumber()
+        {
+            $query = 'SELECT SUM(interacted) as interactions FROM users';
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            
+            $row = $stmt->fetch();
+            return $row['interactions'];
+        }
+        
+        public function getCurrentWeekInteractionRowsNumber()
+        {
+            $query = 'SELECT COUNT(*) as interactions FROM interaction_time WHERE interaction_date_time >=  DATE_SUB(CURDATE(), INTERVAL 7 DAY)';
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            
+            $row = $stmt->fetch();
+            return $row['interactions'];
+        }
+
     }
