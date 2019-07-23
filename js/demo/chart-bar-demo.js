@@ -27,98 +27,109 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   return s.join(dec);
 }
 
+var maxe;
 var mdr;
 var ctx = document.getElementById("myBarChart");
-$.ajax({    //create an ajax request to display.php
+$.ajax({
   type: "GET",
-  url: "../../Admin/api/data/interactions.php",
-  success: function (response) {
-    mdr = response;
-    console.log(mdr);
+  url: "../Admin/api/data/getMax.php",
+  success: function(response) {
+    maxe = response;
+    $.ajax({    //create an ajax request to display.php
+      type: "GET",
+      url: "../Admin/api/data/interactions.php",
+      success: function (response) {
+        mdr = response;
+        console.log(maxe);
 
-    var myBarChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: [mdr[0].id, mdr[1].id, mdr[2].id, mdr[3].id, mdr[4].id, mdr[5].id, mdr[6].id, mdr[7].id, mdr[8].id,mdr[9].id,mdr[10].id,mdr[11].id,mdr[12].id,mdr[13].id,mdr[14].id,mdr[15].id],
-        datasets: [{
-          label: "Interactions: ",
-          backgroundColor: "#4e73df",
-          hoverBackgroundColor: "#2e59d9",
-          borderColor: "#4e73df",
-          data: [mdr[0].interacted, mdr[1].interacted, mdr[2].interacted, mdr[3].interacted, mdr[4].interacted, mdr[5].interacted, mdr[6].interacted, mdr[7].interacted, mdr[8].interacted,mdr[9].interacted,mdr[10].interacted,mdr[11].interacted,mdr[12].interacted,mdr[13].interacted,mdr[14].interacted,mdr[15].interacted],
-        }],
-      },
-      options: {
-        maintainAspectRatio: false,
-        layout: {
-          padding: {
-            left: 10,
-            right: 25,
-            top: 25,
-            bottom: 0
-          }
-        },
-        scales: {
-          xAxes: [{
-            time: {
-              unit: 'tabs'
-            },
-            gridLines: {
-              display: false,
-              drawBorder: false
-            },
-            ticks: {
-              maxTicksLimit: 16
-            },
-            maxBarThickness: 25,
-          }],
-          yAxes: [{
-            ticks: {
-              min: 0,
-              max: 100,
-              maxTicksLimit: 5,
-              padding: 10,
-              // Include a dollar sign in the ticks
-              callback: function (value, index, values) {
-                return number_format(value);
+        var myBarChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: [mdr[0].localisation, mdr[1].localisation, mdr[2].localisation, mdr[3].localisation, mdr[4].localisation, mdr[5].localisation, mdr[6].localisation, mdr[7].localisation, mdr[8].localisation,mdr[9].localisation,mdr[10].localisation,mdr[11].localisation,mdr[12].localisation,mdr[13].localisation,mdr[14].localisation,mdr[15].localisation],
+            datasets: [{
+              label: "Interactions: ",
+              backgroundColor: "#4e73df",
+              hoverBackgroundColor: "#2e59d9",
+              borderColor: "#4e73df",
+              data: [mdr[0].interacted, mdr[1].interacted, mdr[2].interacted, mdr[3].interacted, mdr[4].interacted, mdr[5].interacted, mdr[6].interacted, mdr[7].interacted, mdr[8].interacted,mdr[9].interacted,mdr[10].interacted,mdr[11].interacted,mdr[12].interacted,mdr[13].interacted,mdr[14].interacted,mdr[15].interacted],
+            }],
+          },
+          options: {
+            maintainAspectRatio: false,
+            layout: {
+              padding: {
+                left: 10,
+                right: 25,
+                top: 25,
+                bottom: 0
               }
             },
-            gridLines: {
-              color: "rgb(234, 236, 244)",
-              zeroLineColor: "rgb(234, 236, 244)",
-              drawBorder: false,
-              borderDash: [2],
-              zeroLineBorderDash: [2]
-            }
-          }],
-        },
-        legend: {
-          display: false
-        },
-        tooltips: {
-          titleMarginBottom: 10,
-          titleFontColor: '#6e707e',
-          titleFontSize: 14,
-          backgroundColor: "rgb(255,255,255)",
-          bodyFontColor: "#858796",
-          borderColor: '#dddfeb',
-          borderWidth: 1,
-          xPadding: 15,
-          yPadding: 15,
-          displayColors: false,
-          caretPadding: 10,
-          callbacks: {
-            label: function (tooltipItem, chart) {
-              var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-              return datasetLabel + number_format(tooltipItem.yLabel);
-            }
+            scales: {
+              xAxes: [{
+                time: {
+                  unit: 'tabs'
+                },
+                gridLines: {
+                  display: false,
+                  drawBorder: false
+                },
+                ticks: {
+                  maxTicksLimit: 16
+                },
+                maxBarThickness: 25,
+              }],
+              yAxes: [{
+                ticks: {
+                  min: 0,
+                  max: maxe.maxed,
+                  maxTicksLimit: 5,
+                  padding: 10,
+                  // Include a dollar sign in the ticks
+                  callback: function (value, index, values) {
+                    return number_format(value);
+                  }
+                },
+                gridLines: {
+                  color: "rgb(234, 236, 244)",
+                  zeroLineColor: "rgb(234, 236, 244)",
+                  drawBorder: false,
+                  borderDash: [2],
+                  zeroLineBorderDash: [2]
+                }
+              }],
+            },
+            legend: {
+              display: false
+            },
+            tooltips: {
+              titleMarginBottom: 10,
+              titleFontColor: '#6e707e',
+              titleFontSize: 14,
+              backgroundColor: "rgb(255,255,255)",
+              bodyFontColor: "#858796",
+              borderColor: '#dddfeb',
+              borderWidth: 1,
+              xPadding: 15,
+              yPadding: 15,
+              displayColors: false,
+              caretPadding: 10,
+              callbacks: {
+                label: function (tooltipItem, chart) {
+                  var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                  return datasetLabel + number_format(tooltipItem.yLabel);
+                }
+              }
+            },
           }
-        },
+        });
       }
+    
     });
   }
-
 });
+
+
+
 
 
 // Bar Chart Example
