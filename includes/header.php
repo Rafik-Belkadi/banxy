@@ -17,7 +17,7 @@ if (!isset($_SESSION['loggedin'])) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Blank</title>
+    <title>Visa Expo App</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -42,18 +42,8 @@ if (!isset($_SESSION['loggedin'])) {
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Banxy-App</div>
+                <div class="sidebar-brand-text mx-3">Visa Expo App</div>
             </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="index.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -69,7 +59,7 @@ if (!isset($_SESSION['loggedin'])) {
             <li class="nav-item">
                 <a class="nav-link" href="tablettes.php">
                     <i class="fas fa-fw fa-tablet"></i>
-                    <span>Tablettes</span></a>
+                    <span>Bornes</span></a>
             </li>
 
             <!-- Divider -->
