@@ -83,6 +83,21 @@ class Form
         printf("Error: %s.\n", $stmt->error);
         return false;
     }
-
-    
+    public function getInteractionRowsNumber()
+    {
+        $query = 'SELECT COUNT(*) as formsNumber FROM forms';
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();    
+        $row = $stmt->fetch();
+        return $row['formsNumber'];
+    }
+    public function getCurrentWeekFormsNumber()
+    {
+        $query = 'SELECT COUNT(*) as formsNumber FROM forms WHERE created_at >=  DATE_SUB(CURDATE(), INTERVAL 7 DAY)';
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        
+        $row = $stmt->fetch();
+        return $row['formsNumber'];   
+    }
 }
