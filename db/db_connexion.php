@@ -4,10 +4,10 @@
 
 */
 // Change this to your connection info.
-$DATABASE_USER = 'root';
-$DATABASE_HOST = 'localhost';
-$DATABASE_PASS = '';
-$DATABASE_NAME = 'banxy';
+$DATABASE_HOST = 'banxy.appstanast.com';
+$DATABASE_USER = 'user_banxy';
+$DATABASE_PASS = '2Thi~o86';
+$DATABASE_NAME = 'bdd_banxy';
 
 
 $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);

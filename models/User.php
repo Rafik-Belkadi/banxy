@@ -130,6 +130,33 @@
             
             return $stmt;
         }
+        public function getEachInteractionTime($id)
+        {
+                $hours_array = [];
+                for($i = 0; $i < 24; $i++)
+                {
+                    $query = 'SELECT HOUR(interaction_date_time) as hour, COUNT(*) as num_rows FROM interaction_time where user_id = ? AND HOUR(interaction_date_time) = ?';
+                    $stmt = $this->conn->prepare($query);
+                    $stmt->bindParam(1, $id);
+                    $stmt->bindParam(2, $i);
+                    $stmt->execute();
+                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                    if(is_null($row['hour'])){
+                        $row['hour'] = $i;
+                    }
+                    $hours_hour_array = [
+                        'heure' => $row['hour'],
+                        'nombre' => $row['num_rows'],
+                    ];
+                    array_push($hours_array, $hours_hour_array);
+                }
+                $users_array = [
+                    'user' => $id,
+                    'hours_array' => $hours_array,
+                ];
+            
+            return $users_array;
+        }
 
         public function getInteractionRowsNumber()
         {
@@ -143,12 +170,28 @@
         
         public function getCurrentWeekInteractionRowsNumber()
         {
-            $query = 'SELECT COUNT(*) as interactions FROM interaction_time WHERE interaction_date_time >=  DATE_SUB(CURDATE(), INTERVAL 7 DAY)';
+            $dt_week_start_date = date('Y-m-d 20:00:01',strtotime("last Sunday"));
+            $dt_week_end_date = date('Y-m-d 20:00:00',strtotime("next Sunday"));
+
+            $query = "SELECT COUNT(*) as interactions FROM interaction_time WHERE  interaction_date_time BETWEEN '".$dt_week_start_date ."' AND '".$dt_week_end_date."'";
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             
             $row = $stmt->fetch();
             return $row['interactions'];
+        }
+
+        public function getFormsSubmittedByUser($user)
+        {
+            $query = 'SELECT COUNT(*) as formsNumber from forms where forms.user_id = ? ';
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(1,$user);
+            $stmt->execute();
+            
+            $row = $stmt->fetch();
+
+            return $row['formsNumber'];
+
         }
 
     }

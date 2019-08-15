@@ -10,7 +10,7 @@ include 'models/User.php';
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-    <a href="actions/export.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>Exporter Rapport d'activités</a>
+    <a href="actions/export-forms.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>Exporter BDD</a>
   </div>
   
 <?php 
@@ -40,9 +40,7 @@ $numberWeekForms = $Form->getCurrentWeekFormsNumber();
               <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Interactions</div>
               <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $numberInteractions ?></div>
             </div>
-            <div class="col-auto">
-              <i class="fas fa-calendar fa-2x text-gray-300"></i>
-            </div>
+            
           </div>
         </div>
       </div>
@@ -58,9 +56,7 @@ $numberWeekForms = $Form->getCurrentWeekFormsNumber();
               <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $numberWeekInteractions ?></div>
             </div>
             
-            <div class="col-auto">
-              <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-            </div>
+            
           </div>
         </div>
       </div>
@@ -84,9 +80,7 @@ $numberWeekForms = $Form->getCurrentWeekFormsNumber();
                 </div>
               </div>
             </div>
-            <div class="col-auto">
-              <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-            </div>
+            
           </div>
         </div>
       </div>
@@ -100,9 +94,6 @@ $numberWeekForms = $Form->getCurrentWeekFormsNumber();
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">BDD (Hebdo)</div>
               <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $numberWeekForms ?></div>
-            </div>
-            <div class="col-auto">
-              <i class="fas fa-comments fa-2x text-gray-300"></i>
             </div>
           </div>
         </div>
@@ -164,21 +155,10 @@ $numberWeekForms = $Form->getCurrentWeekFormsNumber();
         <!-- Card Body -->
         <div class="card-body">
           <div class="chart-pie pt-4 pb-2">
-            <canvas id="myPieChart"></canvas>
+            <canvas id="myChart"></canvas>
           </div>
           <div class="mt-4 text-center small">
-            <span class="mr-2">
-              <i class="fas fa-circle text-primary"></i> Gestion Mobile
-            </span>
-            <span class="mr-2">
-              <i class="fas fa-circle text-success"></i> Avantages
-            </span>
-            <span class="mr-2">
-              <i class="fas fa-circle text-info"></i> Cartes <br>
-            </span>
-            <span class="mr-2">
-              <i class="fas fa-circle text-dark"></i> Écoute
-            </span>
+            
             <hr>
             analyse des intérêts portés sur l'offre par rubrique
           </div>
@@ -221,6 +201,7 @@ $numberWeekForms = $Form->getCurrentWeekFormsNumber();
             </tr>
           </tfoot>
           <tbody>
+          
           <?php 
           
             while($data = $result->fetch()){
@@ -229,6 +210,7 @@ $numberWeekForms = $Form->getCurrentWeekFormsNumber();
               $localisation = $User->getUser($user_id)->fetch()['localisation'];
               
               echo '
+              <tr>
               <td>' . $data['id'] . '</td>
               <td>' . $data['first_name'] . '</td>
               <td>' . $data['last_name'] . '</td>
@@ -237,12 +219,13 @@ $numberWeekForms = $Form->getCurrentWeekFormsNumber();
               <td>' . $data['mobile'] . '</td>
               <td>' . $localisation . '</td>
               <td>' . $data['created_at'] . '</td>
+              </tr>
               ';
             }
           ?>
-            <tr>
+           
               
-            </tr>
+            
 
           </tbody>
         </table>

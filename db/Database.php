@@ -2,10 +2,10 @@
 // This is the Database for the API
 class Database {
     //  DB Params
-    private $host = 'localhost';
-    private $db_name = 'banxy';
-    private $username = 'root';
-    private $password = '';
+    private $host = 'banxy.appstanast.com';
+    private $db_name = 'bdd_banxy';
+    private $username = 'user_banxy';
+    private $password = '2Thi~o86';
     private $conn;
 
     public function connect() {

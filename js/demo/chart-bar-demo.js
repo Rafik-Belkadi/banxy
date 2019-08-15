@@ -40,7 +40,6 @@ $.ajax({
       url: "../Admin/api/data/interactions.php",
       success: function (response) {
         mdr = response;
-        console.log(maxe);
 
         var myBarChart = new Chart(ctx, {
           type: 'bar',

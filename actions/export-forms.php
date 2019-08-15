@@ -8,7 +8,7 @@ $Form = new Form($db);
 $stmt = $Form->getAllForms();
 
 $columnHeader ='';
-$columnHeader = "ID"."\t"."Tablette N°"."\t"."Email"."\t"."Prénom"."\t"."Nom"."\t"."Civilité"."\t"."Date Création"."\t"."Mobile"."\t";
+$columnHeader = "ID"."\t"."Tablette N°"."\t"."Email"."\t"."Prenom"."\t"."Nom"."\t"."Civilite"."\t"."Date Creation"."\t"."Mobile"."\t";
                 
 
 

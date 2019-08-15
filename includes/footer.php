@@ -3,7 +3,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Rafik Belkadi 2019</span>
+            <span>Copyright &copy; TBWA/DJAZ <br> Rafik Belkadi 2019</span>
           </div>
         </div>
       </footer>
@@ -43,9 +43,10 @@
     <script src="vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
+    <script src="js/demo/chart-bar-demo.js"></script>
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
-    <script src="js/demo/chart-bar-demo.js"></script>
+    
 
 </body>
 

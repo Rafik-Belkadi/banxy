@@ -93,7 +93,9 @@ class Form
     }
     public function getCurrentWeekFormsNumber()
     {
-        $query = 'SELECT COUNT(*) as formsNumber FROM forms WHERE created_at >=  DATE_SUB(CURDATE(), INTERVAL 7 DAY)';
+        $dt_week_start_date = date('Y-m-d 20:00:01',strtotime("last Sunday"));
+        $dt_week_end_date = date('Y-m-d 20:00:00',strtotime("next Sunday"));
+        $query = "SELECT COUNT(*) as formsNumber FROM forms WHERE created_at BETWEEN '".$dt_week_start_date ."' AND '".$dt_week_end_date."'";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         
